@@ -1,0 +1,95 @@
+
+
+<div class="container">
+<div class="row mainDiv" *ngIf="IsLoaded == true">
+  <div class="col mb-5">
+      <div class="plane">
+          <div class="logoImage">
+              <img style="width: 60%;" src="../../../assets/Image/logo.png">
+            </div>
+
+        <hr/>
+        <div class="CustomerInfo">
+            <h3>Welcome {{Customers.fullName}}</h3>
+            <h5 class="event-text">Event Name : {{Events.eventName}}</h5>
+            <h5 class="event-text">Event Date : {{Events.eventDate | date:'dd MMMM yyyy'}}</h5>
+            <h5 class="event-text">You can reserve seat for this event !</h5>
+        </div>
+        <hr/>
+        <div>
+          <div class="stage">
+              <div class="Screen">
+                  <div class="stageScreenTest">Screen 4M X 12M</div>
+              </div>
+              <div>
+                  <h5 class="stage-text">STAGE</h5>
+                  <img src="../../../assets/Image/publicstage.svg" class="stage-image pull-right" />
+              </div>
+
+          </div>
+
+
+          <div class="row col-12">
+            <div class="col-6">
+              <div class="stage-sofa">
+                <div class="couchtable couch-tableA">test</div>
+                <div class="couchtable couch-tableB">testB</div>
+                <span class="couch couchA"><i class="fas fa-couch fa-lg"></i></span>
+                <span class="couch couchB"><i class="fas fa-couch fa-lg"></i></span>
+                <span class="couch couchC"><i class="fas fa-couch fa-lg"></i></span>
+                <span class="couch couchD"><i class="fas fa-couch fa-lg"></i></span>
+            </div>
+            </div>
+            <div class="col-6">
+              <div class="stage-control">
+                <p>Lighting & Screen Control table</p>
+            </div>
+
+            </div>
+          </div>
+
+          <ol class="cabin" >
+            <div style="height: 30px;">
+            <ul class="legend">
+                <li><span class="reserved"></span><b>Reserved</b></li>
+                <li><span class="available"></span><b>Available</b></li>
+                <li><span class="noteligible"></span><b>Not Eligible</b></li>
+            </ul>
+            </div>
+            <hr/>
+
+            <li *ngFor="let Rowitem of Result">
+                <ol class="seats">
+                    <li [ngClass]="{'seath1': i == 0 && Rowitem.Tables.length == 2, 'seath2': i == 1 && Rowitem.Tables.length == 2}" class="seat" *ngFor="let table of Rowitem.Tables; let i = index">
+                        <label [ngStyle]="{'background-color': table.tableColor}">{{table.tableName}}</label>
+                        <button placement="top" ngbTooltip="{{seat.reservedCustomerName}}" [disableTooltip]="seat.seatColor == 'UnReserved'" (click)="SelectedSeat(seat,table.tableName)"  
+                                    id="btn" class="chair {{'chair'+ seat.seatName +' ' +seat.seatColor}}"
+                                    *ngFor="let seat of table.seats" [disabled]="seat.seatColor == 'NotEligible'" [ngClass]="{'Changedbackground' : seat.IsChanged == true}">
+                                    {{seat.seatName}}
+                        </button>
+                      
+                    </li>
+                </ol>
+              </li>
+          </ol>
+          
+          <div class="gateMain">
+              <div class="btn-submit">
+                  <button (click)="Reserve()" class="btn btn-1">Reserve Seat</button>
+              </div>
+              <div class="main-gate">
+                  <div class="gateA"><p></p></div>
+                  <p class="main-gate-text">MAIN GATE</p>
+                  <div class="gateB"><p></p></div>
+
+              </div>
+          </div>
+          </div>
+      </div>
+
+
+
+  </div>
+</div>
+
+</div>
